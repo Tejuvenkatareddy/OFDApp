@@ -4,6 +4,11 @@ import java.util.*;
 
 import com.capgemini.OFDApp.domain.*;
 
+/**
+ * This is the item service interface
+ * @author 
+ *
+ */
 public interface IItemService {
 	
 	public Item addItem(Item item);
