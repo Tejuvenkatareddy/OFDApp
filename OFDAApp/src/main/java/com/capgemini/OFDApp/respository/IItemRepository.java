@@ -8,7 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import com.capgemini.OFDApp.*;
 import com.capgemini.OFDApp.domain.*;
 import com.capgemini.OFDApp.domain.*;
-
+/**
+ * This is the item repository interface
+ * @author 
+ *
+ */
 public interface IItemRepository extends JpaRepository<Item,Integer>{
 @Query("Select c From Category c")
 	List<Item> findAllItems(Category cat);
