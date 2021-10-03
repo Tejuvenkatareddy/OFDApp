@@ -12,19 +12,32 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+/**
+ * This class will be working as a data traveler object from layer to layer
+ * @author thejhv
+ *
+ */
 
 
 @Entity
 @Table(name="res_master")
 public class Restaurant {
+	/**
+	 * Id of Restaurant 
+	 */
 	
 	@Id
 	@Column(name="restaurantid")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int restaurantId;
+	/**
+	 * Name of restaurant
+	 */
 	@Column
 	private String resturantName;
+	/*
+	 * Getters and Setters
+	 */
 	public int getRestaurantId() {
 		return restaurantId;
 	}
@@ -55,12 +68,24 @@ public class Restaurant {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+	/*
+	 * Name of the manager
+	 */
 	@Column
 	private String managerName;
+	/*
+	 * Contact Number
+	 */
 	@Column
 	private String contactNumber;
+	/*
+	 * OneToOne relationship with address
+	 */
 	@OneToOne(mappedBy="restaurant")
 	private Address address;
+	/*
+	 * ManytoMany relationship with Item
+	 */
 	
 	@ManyToMany(cascade=CascadeType.ALL)
 	//@Column(name="itemid")

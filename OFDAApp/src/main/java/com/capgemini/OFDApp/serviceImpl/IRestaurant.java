@@ -16,30 +16,21 @@ import com.capgemini.OFDApp.service.IRestaurantService;
 @Service
 @Transactional
 public class IRestaurantServiceImpl implements IRestaurantService {
-	/**
-	 * Restaurant Repository is autowired
-	 */
+
 	@Autowired
 	IRestaurantRepository irRep;
-	/**
-	 * Implementation of addRestauarnt method to add a Restaurant
-	 */
 	@Override
 	public Restaurant addRestaurant(Restaurant res) {
 		
 		return irRep.save(res);
 	}
-	/**
-	 * Implementation of viewRestaurant method to view a Restaurant
-	 */
+
 	@Override
 	public Restaurant viewRestaurant(Restaurant res) {
 		
 		return irRep.findById(res.getRestaurantId()).orElseThrow(()->new EntityNotFoundException("No details!"));
 	}
-	/**
-	 * Implementation of updateRestaurant method to update existing Restaurant
-	 */
+
 	@Override
 	public Restaurant updateRestaurant(Restaurant res) {
 		
@@ -47,37 +38,26 @@ public class IRestaurantServiceImpl implements IRestaurantService {
 		r.setResturantName(res.getResturantName());
 		return irRep.save(r);
 	}
-	/**
-	 * Implementation of removeRestaurant method to remove existing Restaurant
-	 */
+
 	@Override
 	public Restaurant removeRestaurant(Restaurant res) {
 		irRep.delete(res);
 		return null;
 	}
-	/**
-	 * Implementation of viewRestaurantByItemname method to view item in restaurant
-	 */
+
 	@Override
 	public List<Restaurant> viewRestaurantByItemName(String name) {
 			
 		return irRep.findByName(name);
 	}
-	/**
-	 * Implementation of viewNearByRestaurant method to view near by restaurant
-	 */
-	@Override
-	public List<Restaurant> viewNearByRestaurant(String location) {
+
+	public List<Restaurant> viewBearByRestaurant(String location) {
 		
 		return irRep.findByLocation(location);
 	}
 
 	
-	/**
-	 * Implementation of viewAllRes method to view All Restaurants
-	 * @param restaurant1
-	 * @return
-	 */
+	
 	public List<Restaurant> viewAllRes(Restaurant restaurant1) {
 	
 		return null;
