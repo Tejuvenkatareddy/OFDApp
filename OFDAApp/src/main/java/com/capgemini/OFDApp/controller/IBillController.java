@@ -62,7 +62,7 @@ IBillServiceImpl ibService;
  
  }
  @GetMapping("/sumOfTotalCost")
- public double CalaculateTotalCost(Bill bill)
+ public double CalculateTotalCost(Bill bill)
  { return ibService.CalculateTotalCost(bill);
  
  }
