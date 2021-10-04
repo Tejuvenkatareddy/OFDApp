@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.OFDApp.domain.*;
 import com.capgemini.OFDApp.domain.*;
 import com.capgemini.OFDApp.serviceImpl.*;
-
+/**
+ * This is the ICustomerController and it is used for handling front end calls and generate json response. 
+ * @author subhasree
+ *
+ */
 
 @RestController
 @RequestMapping("/Customers")
@@ -24,30 +28,31 @@ public class ICustomerController {
 	
 	@Autowired
 	ICustomerServiceimpl iservice;
-	@PostMapping
+	@PostMapping("/add")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Customer addCustomer(@RequestBody Customer customer)
 	{
 	return	iservice.addCustomer(customer);
 	}
-	@GetMapping
+    @PostMapping("/view")
 	public Customer viewCustomer(@RequestBody Customer customer)
 	{
 		return iservice.viewCustomer(customer);
 		
 	}
-	@PutMapping
+	@PutMapping("/update")
 	public Customer updateCustomer(@RequestBody Customer customer)
 	{
 		 return iservice.updateCustomer(customer);
 	}
-	@DeleteMapping
-	public Customer removeCustomer(Customer customer)
+	@DeleteMapping("/remove")
+	public String removeCustomer(@RequestBody Customer customer)
 	{
-		return iservice.removeCustomer(customer);
+		 return iservice.removeCustomer(customer);
+		
 	}
 	
-	@GetMapping("/all")
+    @GetMapping("/all")
 	public List<Customer> viewAllCustomers(Restaurant res)
 	{
 		return iservice.viewAllCustomers(res);
