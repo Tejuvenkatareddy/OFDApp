@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javassist.tools.rmi.RemoteException;
+
 
 
 @ControllerAdvice
@@ -34,4 +36,16 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 		return new ResponseEntity <Object> (exceptionResponse, HttpStatus.BAD_REQUEST);
 	
 	}
+	@ExceptionHandler
+	public final ResponseEntity<Object> handleProjectException(RestaurantIdIdException ex, WebRequest request){
+		RestaurantIdExceptionResponse exceptionResponse = new RestaurantIdExceptionResponse(ex.getMessage());
+		return new ResponseEntity <Object> (exceptionResponse, HttpStatus.BAD_REQUEST);
+	
+	}
+	@ExceptionHandler
+	public final ResponseEntity<Object> handleProjectException(CategoryIdException ex, WebRequest request){
+		CategoryIdExceptionResponse exceptionResponse = new CategoryIdExceptionResponse(ex.getMessage());
+		return new ResponseEntity <Object> (exceptionResponse, HttpStatus.BAD_REQUEST);
+	}
+	
 }

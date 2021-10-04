@@ -31,14 +31,14 @@ public class IRestaurantController {
 	 * @param res
 	 * @return
 	 */
-	@PostMapping
+	@PostMapping ("/add")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Restaurant addRestaurant(@RequestBody Restaurant res)
 	{
 	return	irservice.addRestaurant(res);
 	}
-	@GetMapping
-	public Restaurant viewRestaurant(Restaurant res)
+	@PostMapping ("/viw")
+	public Restaurant viewRestaurant(@RequestBody Restaurant res)
 	{
 		return irservice.viewRestaurant(res);
 		
@@ -49,7 +49,7 @@ public class IRestaurantController {
 	 * @param res
 	 * @return
 	 */
-	@PutMapping
+	@PostMapping ("/update")
 	public Restaurant updateRestaurant(@RequestBody Restaurant res)
 	{
 		return irservice.updateRestaurant(res);
@@ -60,8 +60,8 @@ public class IRestaurantController {
 	 * @param res
 	 * @return
 	 */
-	@DeleteMapping
-	public Restaurant removeRestaurant(Restaurant res)
+	@DeleteMapping ("/remove")
+	public Restaurant removeRestaurant(@RequestBody Restaurant res)
 	{
 		return irservice.removeRestaurant(res);
 	}
@@ -71,8 +71,8 @@ public class IRestaurantController {
 	 * @param name
 	 * @return
 	 */
-	@GetMapping("/{name}")
-	public List<Restaurant> viewRestaurantByItemName(String name)
+	@PostMapping("/{name}")
+	public List<Restaurant> viewRestaurantByItemName(@RequestBody String name)
 	{
 		return irservice.viewRestaurantByItemName(name);
 		
@@ -84,8 +84,8 @@ public class IRestaurantController {
 	 * @return
 	 */
 
-	@GetMapping("/{area}")
-	public List<Restaurant> viewBearByRestaurant(String location)
+	@PostMapping("/{area}")
+	public List<Restaurant> viewBearByRestaurant(@RequestBody String location)
 	{
 		return irservice.viewNearByRestaurant(location);
 		
