@@ -17,24 +17,47 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * This is the Item class which passes from layer to layer
+ * @author 
+ *
+ */
 @Entity
 @Table(name="item_master")
 public class Item {
 
+	/**
+	 * Item ID is primary key
+	 */
 	@Id
 	@Column(name="itemid")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int itemId;
+	/**
+	 * Item name
+	 */
 	@Column
 	private String itemName;
+	/**
+	 * Item quantity
+	 */
 	@Column
 	public Integer quantity;
+	/**
+	 * Item cost
+	 */
 	@Column
 	private double cost;
 	
+	/**
+	 * ManyToOne mapping with foodcart
+	 */
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "cartId")
 	private FoodCart foodcart;
+	/**
+	 * Setters and getters
+	 */
 	public int getItemId() {
 		return itemId;
 	}

@@ -14,6 +14,11 @@ import com.capgemini.OFDApp.*;
 import com.capgemini.OFDApp.respository.*;
 import com.capgemini.OFDApp.service.IItemService;
 
+/**
+ * This is the item service implementation class
+ * @author 
+ *
+ */
 @Service
 @Transactional
 public class IItemServiceimpl implements IItemService {

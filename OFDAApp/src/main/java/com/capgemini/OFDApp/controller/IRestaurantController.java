@@ -20,9 +20,17 @@ import com.capgemini.OFDApp.serviceImpl.*;
 @RestController
 @RequestMapping("/Restaurants")
 public class IRestaurantController {
-	
+	/**
+	 * Restaurant Service is Autowired
+	 */
 	@Autowired
 	IRestaurantServiceImpl irservice;
+	/**
+	 * To add Restaurant
+	 * return : res
+	 * @param res
+	 * @return
+	 */
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Restaurant addRestaurant(@RequestBody Restaurant res)
@@ -35,27 +43,51 @@ public class IRestaurantController {
 		return irservice.viewRestaurant(res);
 		
 	}
+	/**
+	 * To modify a Restaurant
+	 * return : res
+	 * @param res
+	 * @return
+	 */
 	@PutMapping
 	public Restaurant updateRestaurant(@RequestBody Restaurant res)
 	{
 		return irservice.updateRestaurant(res);
 	}
+	/**
+	 * To remove a Restaurant
+	 * return : void
+	 * @param res
+	 * @return
+	 */
 	@DeleteMapping
 	public Restaurant removeRestaurant(Restaurant res)
 	{
 		return irservice.removeRestaurant(res);
 	}
+	/**
+	 * To retrieve an Restaurant
+	 * return : res
+	 * @param name
+	 * @return
+	 */
 	@GetMapping("/{name}")
 	public List<Restaurant> viewRestaurantByItemName(String name)
 	{
 		return irservice.viewRestaurantByItemName(name);
 		
 	}
+	/**
+	 * To retrieve all Restaurants
+	 * return : List<restaurants>
+	 * @param location
+	 * @return
+	 */
 
 	@GetMapping("/{area}")
 	public List<Restaurant> viewBearByRestaurant(String location)
 	{
-		return irservice.viewBearByRestaurant(location);
+		return irservice.viewNearByRestaurant(location);
 		
 	}
 

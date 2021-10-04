@@ -12,20 +12,36 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+/**
+ * This class will be working as a data traveler object from layer to layer
+ * @author thejhv
+ *
+ */
 @Entity
 @Table(name="category_master")
 public class Category {
+	/*
+	 * Id of Category
+	 */
 	@Id
 	@Column(name="orderid")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int catId;
+	/*
+	 * Name of the Category
+	 */
 	@Column(name="catname")
 	private String catName;
+	/*
+	 * OneToOne relationship with Item
+	 */
 	
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="itemid")
 	private Item item;
+	/*
+	 * Getters And Setters
+	 */
 	public int getCatId() {
 		return catId;
 	}
