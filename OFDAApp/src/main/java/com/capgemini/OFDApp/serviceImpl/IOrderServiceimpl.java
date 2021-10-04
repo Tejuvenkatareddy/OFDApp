@@ -14,6 +14,8 @@ import com.capgemini.OFDApp.domain.FoodCart;
 import com.capgemini.OFDApp.domain.Item;
 import com.capgemini.OFDApp.domain.OrderDetails;
 import com.capgemini.OFDApp.domain.Restaurant;
+import com.capgemini.OFDApp.exceptions.CartIdException;
+import com.capgemini.OFDApp.exceptions.OrderIdException;
 import com.capgemini.OFDApp.respository.IFoodCartRepository;
 import com.capgemini.OFDApp.respository.IItemRepository;
 import com.capgemini.OFDApp.respository.IOrderRepository;
@@ -50,6 +52,9 @@ public class IOrderServiceimpl implements IOrderService{
 
 		OrderDetails order=new OrderDetails();
 		FoodCart cart=cartRepository.findById(cartId).orElse(null);
+		if(cart == null) {
+			throw new CartIdException("Cart id doesn't exists...");
+		}
 		/*List<Item> orderList=new ArrayList<Item>();
 		
 		List<Item> item1=cart.getItemlist();
