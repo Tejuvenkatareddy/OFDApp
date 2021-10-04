@@ -49,7 +49,7 @@ public class IFoodCartController {
 		FoodCart cart2=new FoodCart();
 		cart2.setCartId(cart1.getCartId());
 		cart2.setCustomer(cart1.getCustomer());
-		return new ResponseEntity<FoodCart>(cart2, HttpStatus.OK);
+		return new ResponseEntity<FoodCart>(cart1, HttpStatus.OK);
 		
 	}
 	
@@ -73,7 +73,9 @@ public class IFoodCartController {
 	public ResponseEntity<String> removeItem(@RequestParam("cartId") int cartId, @RequestParam("itemId") int itemId) {
 		
 		FoodCart cart=cartService.getCartById(cartId);
-		Item item=itemService.viewItem(itemId);
+		Item item1 = new Item();
+		item1.setItemId(itemId);
+		Item item=itemService.viewItem(item1);
 		String msg=cartService.removeItem(cart, item);
 		return new ResponseEntity<String>(msg, HttpStatus.OK);
 			

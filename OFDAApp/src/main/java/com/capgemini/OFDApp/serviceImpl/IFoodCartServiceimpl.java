@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.OFDApp.*;
 import com.capgemini.OFDApp.domain.*;
+import com.capgemini.OFDApp.exceptions.CustomerIdException;
+import com.capgemini.OFDApp.exceptions.ItemIdException;
 import com.capgemini.OFDApp.respository.ICustomerRepository;
 import com.capgemini.OFDApp.respository.IFoodCartRepository;
 import com.capgemini.OFDApp.respository.IItemRepository;
@@ -45,6 +47,9 @@ public class IFoodCartServiceimpl implements IFoodCartService {
 	public FoodCart createCart(FoodCart cart, Integer customerId) {
 
 		Customer customer = (customerRepository.findById(customerId)).orElse(null);
+		if(customer == null) {
+			throw new CustomerIdException("Customer id doesn't exixts...");
+		}
 		cart.setCustomer(customer);
 		return cartRepository.save(cart);
 	}
@@ -55,9 +60,13 @@ public class IFoodCartServiceimpl implements IFoodCartService {
 		FoodCart cart=cartRepository.findById(cartId).orElse(null);
 		FoodCart cart1=new FoodCart();
 		Item item=itemRepository.findById(itemId).orElse(null);
+		if(item==null) {
+			throw new ItemIdException("Item id doesn't exists");
+		}
 		int size=cart.getItemList().size();
 		if(size==0)
 		{
+			item.setQuantity(0);
 			cart.getItemList().add(item);
 		    cart1=cartRepository.save(cart);			
 		}
@@ -67,7 +76,7 @@ public class IFoodCartServiceimpl implements IFoodCartService {
 			int old_rid=cart.getItemList().get(0).getRestaurant().getRestaurantId();
 			if(new_rid==old_rid)
 			{
-				//item.setQuantity(1);
+				item.setQuantity(1);
 				cart.getItemList().add(item);
 			    cart1=cartRepository.save(cart);
 			}
@@ -128,7 +137,8 @@ public class IFoodCartServiceimpl implements IFoodCartService {
 	public String removeItem(FoodCart cart, Item item) {
 		List<Item> list=cart.getItemList();
 		int id=item.getItemId();
-		int isPresent=0,index=0;
+		int isPresent=0;
+		int index=0;
 		for(int i=0;i<list.size();i++)
 		{
 			if(id==list.get(i).getItemId())
