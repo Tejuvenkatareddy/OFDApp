@@ -1,6 +1,8 @@
 package com.capgemini.OFDApp.serviceImpl;
 import java.util.List;
 
+import java.util.Optional;
+
 import javax.persistence.*;
 import javax.transaction.Transactional;
 
@@ -11,6 +13,11 @@ import com.capgemini.OFDApp.*;
 import com.capgemini.OFDApp.domain.*;
 import com.capgemini.OFDApp.respository.*;
 import com.capgemini.OFDApp.service.ICustomerService;
+/**
+ * The ICustomerServiceImpl class is a service Implementation, to implement the business logic of OrderDetails
+ * @author Subhasree
+ *
+ */
 @Service
 @Transactional
 public class ICustomerServiceimpl implements ICustomerService{
@@ -26,24 +33,24 @@ public class ICustomerServiceimpl implements ICustomerService{
 
 	public Customer viewCustomer(Customer customer) {
 		
-	return iRep.findById(customer.getCustomerId()).orElseThrow(()->new EntityNotFoundException("No details!"));
+	Optional<Customer> customerOptional=iRep.findById(customer.getCustomerId());
+	return customerOptional.get();
 	
 	}
 
 	@Override
 	public Customer updateCustomer(Customer customer) {
 	
-		
-		 Customer cust=iRep.findById(customer.getCustomerId()).orElseThrow(()-> new
-		  EntityNotFoundException("No customer found!"));
-		cust.setFirstName(cust.getFirstName()); return iRep.save(cust);
+		iRep.save(customer);
+		return customer;
+		 
 	}
 
 	@Override
-	public Customer removeCustomer(Customer customer) {
+	public String removeCustomer(Customer customer) {
 		
 		iRep.delete(customer);
-		return null;
+	  return "customer with id "+customer.getCustomerId()+ " is deleted";
 	}
 
 
