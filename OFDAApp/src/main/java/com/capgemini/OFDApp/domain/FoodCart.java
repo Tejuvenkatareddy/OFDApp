@@ -11,53 +11,78 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+/**
+ * The FoodCart Class is a domain, which represents data and it will be moving layer to layer
+ * @author Sreeraj R
+ * 
+ *
+ */
 
 @Entity
 @Table(name="foodcart_master")
-public class FoodCart {
+public class FoodCart{
 	
+	/**
+	 * Id of the Cart
+	 * Primary Key and Auto generated
+	 */
 	@Id
 	@Column(name="cartid")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	
 	private int cartId;
-	@OneToOne(mappedBy="foodcart",cascade=CascadeType.ALL)
+	
+	/**
+	 * customer owing the cart
+	 * OnetoOne relation with customer
+	 */
+	@OneToOne
+	@JoinColumn(name = "cust_id", referencedColumnName = "customerId")
 	private Customer customer;
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn(name="orderid")
-	//@JsonIgnore
-	private OrderDetails orderdetails;
+	
+	/**
+	 * List of items 
+	 * One to many relation with customer 
+	 */
+	//@OneToMany(targetEntity=FoodCart.class,cascade=CascadeType.ALL)
+	//@JoinColumn(name="cartid")
+	//@OneToMany(cascade= CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "foodcart")
+	@ManyToMany
+	@JoinTable(name ="cart_item_list", joinColumns = { @JoinColumn(name = "cartId")}, inverseJoinColumns = {@JoinColumn(name = "item_id")})
+	private List<Item> itemlist = new ArrayList<>();
+	
+	public FoodCart() {
+		super();
+	}
+	
 	public int getCartId() {
 		return cartId;
 	}
 	public void setCartId(int cartId) {
 		this.cartId = cartId;
 	}
-	@JsonIgnore
+	
+	
 	public Customer getCustomer() {
 		return customer;
 	}
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	@OneToMany(targetEntity=FoodCart.class,cascade=CascadeType.ALL)
-	//@JoinColumn(name="cartid")
-	private List<Item> itemlist=new ArrayList<>();
-	//@JsonIgnore
-	public List<Item> getItemlist() {
+	
+	
+	public List<Item> getItemList() {
 		return itemlist;
 	}
-	public void setItemlist(List<Item> itemlist) {
+	public void setItemList(List<Item> itemlist) {
 		this.itemlist = itemlist;
-		for(Item i: itemlist)
-		{
-			i.setFoodcart(this);;
-		}
+		
 	}
 
+	
 }

@@ -102,4 +102,5 @@ public class Item {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	
 }
