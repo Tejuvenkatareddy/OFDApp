@@ -22,33 +22,59 @@ import com.capgemini.OFDApp.serviceImpl.*;
 @RestController
 @RequestMapping("/Categories")
 public class ICategoryController {
-	
+	/**
+	 * Category Service is Autowired
+	 */
 	@Autowired
 	ICategoryServiceimpl icsService;
+	/**
+	 * to add a category
+	 * @param cat
+	 * @return category
+	 */
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Category addCustomer(@RequestBody Category cat)
 	{
 	return	icsService.addCategory(cat);
 	}
+	/**
+	 * to retrieve a category
+	 * @param cat
+	 * @return category
+	 */
 	@GetMapping
 	public Category viewCategory(Category cat)
 	{
 		return icsService.viewCategory(cat);
 		
 	}
-	
+	/**
+	 * to retrieve all categories
+	 * @param cat
+	 * @return List<categories>
+	 */
 	@GetMapping("/listofall")
 	public List<Category> viewAllCategory(Category cat)
 	{
 		return icsService.viewAllCategory(cat);
 		
 	}
+	/**
+	 * to modify a category
+	 * @param cat
+	 * @return category
+	 */
 	@PutMapping
 	public Category updateCategory(@RequestBody Category cat)
 	{
 		return icsService.updateCategory(cat);
 	}
+	/**
+	 * to remove a category
+	 * @param cat
+	 * @return catgeory
+	 */
 	@DeleteMapping
 	public Category removeCategory(Category cat)
 	{

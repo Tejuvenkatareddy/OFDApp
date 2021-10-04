@@ -44,8 +44,8 @@ IBillServiceImpl ibService;
  return ibService.addBill(bill);
  }
  
- @GetMapping
- public Bill viewBill(Bill bill)
+ @PostMapping("/viewAllBills")
+ public Bill viewBill(@RequestBody Bill bill)
  { return ibService.viewBill(bill);
  
  }
@@ -62,7 +62,7 @@ IBillServiceImpl ibService;
  
  }
  @GetMapping("/sumOfTotalCost")
- public double CalaculateTotalCost(Bill bill)
+ public double CalculateTotalCost(Bill bill)
  { return ibService.CalculateTotalCost(bill);
  
  }
