@@ -1,7 +1,7 @@
 package com.capgemini.OFDApp.exceptions;
 
 /**
- * 
+ * The CartIdExceptionResoonse class is the response class of CartIdException
  * @author Sreeraj R
  *
  */

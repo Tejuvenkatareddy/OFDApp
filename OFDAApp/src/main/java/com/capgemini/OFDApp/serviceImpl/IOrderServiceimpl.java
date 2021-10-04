@@ -45,30 +45,26 @@ public class IOrderServiceimpl implements IOrderService{
 	
 	@Override
 	public OrderDetails addOrder(int cartId) {
-		/*order.setOrderStatus(PENDING);
-		FoodCart cart = cartRepository.findByCartId(order.getFoodcart().getCartId());
-		order.setFoodcart(cart);
-		return orderRepository.save(order);*/
 
 		OrderDetails order=new OrderDetails();
 		FoodCart cart=cartRepository.findById(cartId).orElse(null);
 		if(cart == null) {
 			throw new CartIdException("Cart id doesn't exists...");
 		}
-		/*List<Item> orderList=new ArrayList<Item>();
+		List<Item> orderList=new ArrayList<Item>();
 		
-		List<Item> item1=cart.getItemlist();
+		List<Item> item1=cart.getItemList();
 		int list_size=item1.size();
 		for(int i=0;i<list_size;i++)
 		{
 			Item item=item1.get(i);
 			orderList.add(item);
 		}
-		Restaurant rest=item1.get(0).getRestaurant();
+		//Restaurant rest=item1.get(0).getRestaurant();
 		order.setCustomer(cart.getCustomer());
-		order.setRestaurant(rest);
+		//order.setRestaurant(rest);
 		order.setList(orderList);
-		order.setOrderDate(LocalDateTime.now());*/
+		//order.setOrderDate(LocalDateTime.now());*/
 		order.setOrderStatus("Pending");
 		order.setFoodcart(cart);
 		orderRepository.save(order);
@@ -78,12 +74,10 @@ public class IOrderServiceimpl implements IOrderService{
 
 	@Override
 	public OrderDetails viewOrder(int id) {
-		/*OrderDetails order1 = orderRepository.findByOrderId(order.getOrderId());
-		if(order1== null) {
-			throw new EntityNotFoundException("Could not find the order");
-		}
-		return order1;*/
 		OrderDetails order=orderRepository.findById(id).orElse(null);
+		if(order ==null) {
+			throw new OrderIdException("Order id doesn't exists...");
+		}
 		System.out.println("View list in order :"+order.getList());
 		order.setList(order.getList());
 		return order;

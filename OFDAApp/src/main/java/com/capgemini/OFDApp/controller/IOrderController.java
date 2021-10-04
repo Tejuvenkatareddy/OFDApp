@@ -50,6 +50,8 @@ public class IOrderController {
 		OrderDetails order1=orderService.viewOrder(order.getOrderId());
         order.setOrderDate(order1.getOrderDate());
         order.setFoodcart(order1.getFoodcart());
+        order.setCustomer(order1.getCustomer());
+        order.setList(order1.getList());
 			OrderDetails order2 =orderService.updateOrder(order);
 			return new ResponseEntity<OrderDetails>(order2,HttpStatus.OK);
 	}
