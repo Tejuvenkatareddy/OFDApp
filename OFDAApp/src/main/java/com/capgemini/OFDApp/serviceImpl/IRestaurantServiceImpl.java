@@ -21,13 +21,23 @@ public class IRestaurantServiceImpl implements IRestaurantService {
 	 */
 	@Autowired
 	IRestaurantRepository irRep;
+	@Autowired
+	IItemRepository itemRep;
+	@Autowired
+	IAddressRepository addressRep;
 	/**
 	 * Implementation of addRestauarnt method to add a Restaurant
 	 */
 	@Override
 	public Restaurant addRestaurant(Restaurant res) {
 		
-		return irRep.save(res);
+		List<Item> list=res.getItemList();
+		for(Item i: list)	{
+			itemRep.save(i);
+		}
+		addressRep.save(res.getAddress());
+		irRep.save(res);
+		return res;
 	}
 	/**
 	 * Implementation of viewRestaurant method to view a Restaurant
@@ -44,7 +54,7 @@ public class IRestaurantServiceImpl implements IRestaurantService {
 	public Restaurant updateRestaurant(Restaurant res) {
 		
 		Restaurant r=irRep.findById(res.getRestaurantId()).orElseThrow(()->new EntityNotFoundException("No details!"));
-		r.setResturantName(res.getResturantName());
+		r.setRestaurantName(res.getRestaurantName());
 		return irRep.save(r);
 	}
 	/**
