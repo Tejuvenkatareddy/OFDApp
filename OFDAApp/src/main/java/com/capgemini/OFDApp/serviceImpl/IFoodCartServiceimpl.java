@@ -74,8 +74,10 @@ public class IFoodCartServiceimpl implements IFoodCartService {
 		}
 		else
 		{
-			int new_rid=item.getRestaurant().getRestaurantId();
-			int old_rid=cart.getItemList().get(0).getRestaurant().getRestaurantId();
+			List<Restaurant> list=item.getRestaurants();
+			for(Restaurant res: list)	{
+			int new_rid=res.getRestaurantId();
+			int old_rid=cart.getItemList().get(0).getRestaurants().get(0).getRestaurantId();
 			if(new_rid==old_rid)
 			{
 				item.setQuantity(1);
@@ -85,6 +87,7 @@ public class IFoodCartServiceimpl implements IFoodCartService {
 			else
 			{
 				throw new RestaurantIdIdException("Items are not from same restaurant...");
+			}
 			}
 		}
 		return cart1;

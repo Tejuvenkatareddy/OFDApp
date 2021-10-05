@@ -27,6 +27,9 @@ public class ICustomerServiceimpl implements ICustomerService{
 	@Override
 	public Customer addCustomer(Customer customer) {
 		
+		Address address=customer.getAddress();
+		address.setCustomer(customer);
+		
 		return iRep.save(customer);
 	}
 
@@ -34,6 +37,7 @@ public class ICustomerServiceimpl implements ICustomerService{
 	public Customer viewCustomer(Customer customer) {
 		
 	Customer cust= iRep.getById(customer.getCustomerId());
+	
 	//Optional<Customer> customerOptional=iRep.findById(customer.getCustomerId());
 	return cust;
 	
@@ -64,8 +68,8 @@ public class ICustomerServiceimpl implements ICustomerService{
 
 
 	
-	  public List<Customer> viewAllCus(Customer customer1) {
-	  
-	  return iRep.findAll(); }
+//	  public List<Customer> viewAllCus(Customer customer1) {
+//	  
+//	  return iRep.findAll(); }
 	 
 }

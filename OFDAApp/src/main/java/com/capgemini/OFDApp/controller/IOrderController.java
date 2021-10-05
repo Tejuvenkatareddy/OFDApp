@@ -52,6 +52,7 @@ public class IOrderController {
         order.setFoodcart(order1.getFoodcart());
         order.setCustomer(order1.getCustomer());
         order.setList(order1.getList());
+        order.setRestaurant(order1.getRestaurant());
 			OrderDetails order2 =orderService.updateOrder(order);
 			return new ResponseEntity<OrderDetails>(order2,HttpStatus.OK);
 	}

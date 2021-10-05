@@ -67,7 +67,17 @@ public class OrderDetails {
 	@JsonIgnore
 	private Bill bill;
 	
+	@OneToOne
+	@JoinColumn(name = "cust_id")
+	private Customer customer;
 	
+	@ManyToMany
+	@JoinTable(name="orderItemDetails", joinColumns = { @JoinColumn(name="orderId")},inverseJoinColumns = {@JoinColumn(name="itemId")})
+	List<Item> list;
+	
+	@ManyToOne
+	@JoinColumn(name="restaurant_id")
+	Restaurant restaurant;
 	
 	public OrderDetails() {
 		super();
@@ -108,17 +118,7 @@ public class OrderDetails {
 		this.orderDate = LocalDateTime.now();
 	}
 	
-	@OneToOne
-	@JoinColumn(name = "cust_id")
-	private Customer customer;
 	
-	@ManyToMany
-	@JoinTable(name="orderItemDetails", joinColumns = { @JoinColumn(name="orderId")},inverseJoinColumns = {@JoinColumn(name="itemId")})
-	List<Item> list;
-	
-	@ManyToOne
-	@JoinColumn(name="restaurant_id")
-	Restaurant restaurant;
 
 
 

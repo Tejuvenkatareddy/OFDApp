@@ -15,7 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * This is the Item class which passes from layer to layer
@@ -24,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name="item_master")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "itemId")
 public class Item {
 
 	/**
@@ -59,7 +62,8 @@ public class Item {
 	@OneToOne(mappedBy="item",cascade=CascadeType.ALL)
 	private Category category;
 	
-	@ManyToMany(mappedBy="itemList",cascade = CascadeType.MERGE,fetch =FetchType.EAGER)//(targetEntity=Item.class)
+	@ManyToMany(targetEntity = Restaurant.class,mappedBy ="itemList",cascade = CascadeType.ALL,fetch =FetchType.LAZY)//(targetEntity=Item.class)
+	@JsonIgnore
 	private List<Restaurant> restaurants; 
 	/**
 	 * Setters and getters
@@ -103,8 +107,11 @@ public class Item {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	public Restaurant getRestaurant() {
-		return null;
+	public List<Restaurant> getRestaurants() {
+		return restaurants;
+	}
+	public void setRestaurants(List<Restaurant> restaurants) {
+		this.restaurants = restaurants;
 	}
 	
 }

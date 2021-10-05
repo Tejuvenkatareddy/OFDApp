@@ -52,9 +52,12 @@ public class FoodCart{
 	//@OneToMany(targetEntity=FoodCart.class,cascade=CascadeType.ALL)
 	//@JoinColumn(name="cartid")
 	//@OneToMany(cascade= CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "foodcart")
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name ="cart_item_list", joinColumns = { @JoinColumn(name = "cartId")}, inverseJoinColumns = {@JoinColumn(name = "item_id")})
 	private List<Item> itemlist = new ArrayList<>();
+	
+	@OneToOne(cascade = CascadeType.REFRESH)
+	private OrderDetails orderDetails;
 	
 	public FoodCart() {
 		super();
@@ -82,6 +85,22 @@ public class FoodCart{
 	public void setItemList(List<Item> itemlist) {
 		this.itemlist = itemlist;
 		
+	}
+
+	public List<Item> getItemlist() {
+		return itemlist;
+	}
+
+	public void setItemlist(List<Item> itemlist) {
+		this.itemlist = itemlist;
+	}
+
+	public OrderDetails getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(OrderDetails orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
 	

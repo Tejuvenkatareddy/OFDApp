@@ -61,9 +61,9 @@ public class IOrderServiceimpl implements IOrderService{
 			Item item=item1.get(i);
 			orderList.add(item);
 		}
-		//Restaurant rest=item1.get(0).getRestaurant();
+		Restaurant rest=item1.get(0).getRestaurants().get(0);
 		order.setCustomer(cart.getCustomer());
-		//order.setRestaurant(rest);
+		order.setRestaurant(rest);
 		order.setList(orderList);
 		order.setOrderStatus(IOrderService.PENDING);
 		order.setFoodcart(cart);
