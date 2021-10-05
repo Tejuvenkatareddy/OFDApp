@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +13,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 /**
  * This class will be working as a data traveler object from layer to layer
  * @author thejhv
@@ -21,6 +25,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="res_master")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "restaurantId")
 public class Restaurant {
 	/**
 	 * Id of Restaurant 
@@ -48,17 +53,17 @@ public class Restaurant {
 	/*
 	 * OneToOne relationship with address
 	 */
-	@OneToOne(mappedBy="restaurant", cascade = CascadeType.MERGE)
+	@OneToOne(mappedBy="restaurant", cascade = CascadeType.ALL)
 	private Address address;
 	/*
 	 * ManytoMany relationship with Item
 	 */
 	
-	@ManyToMany(cascade=CascadeType.MERGE)
+	@ManyToMany(targetEntity = Item.class, cascade =CascadeType.ALL, fetch = FetchType.LAZY)
 	//@Column(name="itemid")
-	@JoinTable(name="restaurant_item_table", joinColumns = @JoinColumn(name="restaurantId"), 
-			inverseJoinColumns = @JoinColumn(name="itemId"))
-	@JoinColumn(name="itemid")
+//	@JoinTable(name="restaurant_item_table", joinColumns = @JoinColumn(name="restaurantId"), 
+//			inverseJoinColumns = @JoinColumn(name="itemId"))
+//	@JoinColumn(name="itemid")
 	private List<Item> itemList;
 	/*
 	 * Getters and Setters

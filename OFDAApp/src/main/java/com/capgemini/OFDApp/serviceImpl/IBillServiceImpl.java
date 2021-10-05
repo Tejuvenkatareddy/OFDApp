@@ -15,60 +15,63 @@ import com.capgemini.OFDApp.domain.*;
 import com.capgemini.OFDApp.respository.*;
 import com.capgemini.OFDApp.service.IBillService;
 
-
 @Service
 
 @Transactional
 
 @Component
-public class IBillServiceImpl implements IBillService{
+public class IBillServiceImpl implements IBillService {
 
-@Autowired
-IBillRepository ibRep;
-@Override
-public Bill addBill(Bill bill) {
+	@Autowired
+	IBillRepository ibRep;
 
-return ibRep.save(bill);
-}
+	@Override
+	public Bill addBill(Bill bill) {
 
-@Override
-public Bill updateBill(Bill bill) {
-	
-return updateBill(bill);
-}
+		return ibRep.save(bill);
+	}
 
-@Override
-public Bill removeBill(Bill bill) {
-ibRep.delete(bill);
-return null;
-}
+	@Override
+	public Bill updateBill(Bill bill) {
 
-@Override
-public Bill viewBill(Bill bill)  {
-	
-	return ibRep.findOne(bill);
-	
-}
+		return updateBill(bill);
+	}
 
+	@Override
+	public Bill removeBill(Bill bill) {
+		ibRep.delete(bill);
+		return null;
+	}
 
-  @Override 
-  public List<Bill> viewBills(LocalDateTime date)
-  { 
-  
-return ibRep.findBills(date); }
+	@Override
+	public Bill viewBill(Bill bill) {
 
- @Override public List<Bill> viewBills(Bill bill) { 
- 
-	 	return ibRep.viewBill(bill); }
- 
+		return ibRep.findOne(bill);
 
+	}
 
-@Override
-public double CalculateTotalCost(Bill bill) {
-	return ibRep.findTotalCost(bill);
-}
+	@Override
+	public List<Bill> viewBills(LocalDateTime date) {
 
+		return ibRep.findBills(date);
+	}
 
+	@Override
+	public List<Bill> viewBills(Bill bill) {
 
+		return ibRep.viewBill(bill);
+	}
+
+	@Override
+	public double CalculateTotalCost(Bill bill) {
+		return ibRep.findTotalCost(bill);
+	}
+
+	@Override
+	public List<Bill> viewBills(int custId) {
+		List<Bill> list = ibRep.findBillsByCustomer(custId);
+		System.out.println(list);
+		return list;
+	}
 
 }

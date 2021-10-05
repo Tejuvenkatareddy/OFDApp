@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.OFDApp.*;
 import com.capgemini.OFDApp.domain.*;
+import com.capgemini.OFDApp.exceptions.CartIdException;
 import com.capgemini.OFDApp.exceptions.CustomerIdException;
 import com.capgemini.OFDApp.exceptions.ItemIdException;
 import com.capgemini.OFDApp.respository.ICustomerRepository;
@@ -72,8 +73,10 @@ public class IFoodCartServiceimpl implements IFoodCartService {
 		}
 		else
 		{
-			int new_rid=item.getRestaurant().getRestaurantId();
-			int old_rid=cart.getItemList().get(0).getRestaurant().getRestaurantId();
+			List<Restaurant> list=item.getRestaurants();
+			for(Restaurant res: list)	{
+			int new_rid=res.getRestaurantId();
+			int old_rid=cart.getItemList().get(0).getRestaurants().get(0).getRestaurantId();
 			if(new_rid==old_rid)
 			{
 				item.setQuantity(1);
@@ -84,6 +87,7 @@ public class IFoodCartServiceimpl implements IFoodCartService {
 			{
 				return null;
 			}
+			}
 		}
 		return cart1;
 	}
@@ -92,30 +96,22 @@ public class IFoodCartServiceimpl implements IFoodCartService {
 	public FoodCart increaseQuantity(int cart_id,int item_id, int quantity) {
 		
 		FoodCart cart=cartRepository.findById(cart_id).orElse(null);
-		List<Item> list=cart.getItemList();							
+		if(cart==null) {
+			throw new CartIdException("CartId doesn't exists.....");
+		}
+		List<Item> list=cart.getItemList();		
 		int size=list.size();
-		int cnt=0;
 		for(int i=0;i<size;i++)
 		{
 			int id=list.get(i).getItemId();
 			if(item_id==id)
 			{
-				cnt++;
+				list.get(i).setQuantity(list.get(i).getQuantity()+quantity);
+				break;
 			}
+			throw new ItemIdException("Item is not present in cart....");
 		}
-		
-		if(cnt>0)
-		{
-			for(int i=0;i<quantity;i++)
-			{
-				addItemToCart(cart_id, item_id);
-			}
-			return cart;
-		}
-		else
-		{
-			return null;
-		}
+		return cart;
 	
 	}
 
@@ -123,12 +119,23 @@ public class IFoodCartServiceimpl implements IFoodCartService {
 	public FoodCart reduceQuantity(int cart_id,int item_id, int quantity) {
 		
 		FoodCart cart=cartRepository.findById(cart_id).orElse(null);
-		List<Item> list=cart.getItemList();	
-		Item item=itemRepository.findById(item_id).orElse(null);
-	
-		for(int i=0;i<quantity;i++)
+		if(cart==null) {
+			throw new CartIdException("CartId doesn't exists");
+		}
+		List<Item> list=cart.getItemList();		
+		int size=list.size();
+		for(int i=0;i<size;i++)
 		{
-			removeItem(cart, item);
+			int id=list.get(i).getItemId();
+			if(item_id==id)
+			{
+				if(list.get(i).getQuantity()< quantity) {
+					throw new ItemIdException("Quantiy is not present in the cart");
+				}
+				list.get(i).setQuantity(list.get(i).getQuantity()-quantity);
+				break;
+			}
+			throw new ItemIdException("Item is not present in cart");
 		}
 		return cart;
 	}

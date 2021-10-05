@@ -31,11 +31,14 @@ public class IRestaurantServiceImpl implements IRestaurantService {
 	@Override
 	public Restaurant addRestaurant(Restaurant res) {
 		
-		List<Item> list=res.getItemList();
-		for(Item i: list)	{
-			itemRep.save(i);
-		}
-		addressRep.save(res.getAddress());
+//		List<Item> list=res.getItemList();
+//		for(Item i: list)	{
+//			i.setRestaurants(null);
+//			itemRep.save(i);
+//		}
+		Address address=res.getAddress();
+		address.setRestaurant(res);
+//		addressRep.save(address);
 		irRep.save(res);
 		return res;
 	}

@@ -16,5 +16,6 @@ public interface IBillService {
 	
 	public List<Bill> viewBills(Bill bill);
 	
+	public List<Bill> viewBills(int custId);
 	public List<Bill> viewBills(LocalDateTime date);
 }
