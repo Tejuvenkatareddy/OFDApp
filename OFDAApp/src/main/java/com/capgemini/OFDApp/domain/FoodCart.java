@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The FoodCart Class is a domain, which represents data and it will be moving layer to layer
  * @author Sreeraj R
@@ -57,6 +59,7 @@ public class FoodCart{
 	private List<Item> itemlist = new ArrayList<>();
 	
 	@OneToOne(cascade = CascadeType.REFRESH)
+	@JsonIgnore
 	private OrderDetails orderDetails;
 	
 	public FoodCart() {

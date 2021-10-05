@@ -110,7 +110,7 @@ public class IFoodCartServiceimpl implements IFoodCartService {
 				list.get(i).setQuantity(list.get(i).getQuantity()+quantity);
 				break;
 			}
-			throw new ItemIdException("Item is not present in cart....");
+			
 		}
 		return cart;
 	
@@ -136,7 +136,7 @@ public class IFoodCartServiceimpl implements IFoodCartService {
 				list.get(i).setQuantity(list.get(i).getQuantity()-quantity);
 				break;
 			}
-			throw new ItemIdException("Item is not present in cart");
+			
 		}
 		return cart;
 	}
