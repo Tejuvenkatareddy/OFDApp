@@ -69,8 +69,8 @@ public class IFoodCartController {
 		return new ResponseEntity<FoodCart>(cart, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/removeItem")
-	public ResponseEntity<String> removeItem(@RequestParam("cartId") int cartId, @RequestParam("itemId") int itemId) {
+	@DeleteMapping("/removeItem/{cartId}/{itemId}")
+	public ResponseEntity<String> removeItem(@PathVariable("cartId") int cartId, @PathVariable("itemId") int itemId) {
 		
 		FoodCart cart=cartService.getCartById(cartId);
 		Item item1 = new Item();
