@@ -41,6 +41,6 @@ public interface IOrderRepository extends JpaRepository<OrderDetails,Integer>{
 	 * @param order details
 	 * @return Order details
 	 */
-	@Query("select o from OrderDetails o where o.restaurant.restaurantId=(select r.restaurantId from Restaurant r where r.restaurantName=:name)")
+	@Query("select o from OrderDetails o where o.restaurant.restaurantId IN(select r.restaurantId from Restaurant r where r.restaurantName=:name)")
 	public List<OrderDetails> findAllByRestaurant(@Param("name") String resName);
 }

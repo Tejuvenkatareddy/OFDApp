@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.OFDApp.domain.*;
+import com.capgemini.OFDApp.exceptions.CartIdException;
+import com.capgemini.OFDApp.exceptions.ItemIdException;
 import com.capgemini.OFDApp.service.IFoodCartService;
 import com.capgemini.OFDApp.service.IItemService;
 import com.capgemini.OFDApp.serviceImpl.*;
@@ -73,9 +75,15 @@ public class IFoodCartController {
 	public ResponseEntity<String> removeItem(@PathVariable("cartId") int cartId, @PathVariable("itemId") int itemId) {
 		
 		FoodCart cart=cartService.getCartById(cartId);
+		if(cart == null) {
+			throw new CartIdException("Cart doesn't exists....");
+		}
 		Item item1 = new Item();
 		item1.setItemId(itemId);
 		Item item=itemService.viewItem(item1);
+		if(item == null) {
+			throw new ItemIdException("Item Doesn't exists....");
+		}
 		String msg=cartService.removeItem(cart, item);
 		return new ResponseEntity<String>(msg, HttpStatus.OK);
 			
