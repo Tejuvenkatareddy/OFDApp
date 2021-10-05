@@ -19,6 +19,7 @@ import com.capgemini.OFDApp.exceptions.OrderIdException;
 import com.capgemini.OFDApp.respository.IFoodCartRepository;
 import com.capgemini.OFDApp.respository.IItemRepository;
 import com.capgemini.OFDApp.respository.IOrderRepository;
+import com.capgemini.OFDApp.service.IFoodCartService;
 import com.capgemini.OFDApp.service.IOrderService;
 
 /**
@@ -64,8 +65,7 @@ public class IOrderServiceimpl implements IOrderService{
 		order.setCustomer(cart.getCustomer());
 		//order.setRestaurant(rest);
 		order.setList(orderList);
-		//order.setOrderDate(LocalDateTime.now());*/
-		order.setOrderStatus("Pending");
+		order.setOrderStatus(IOrderService.PENDING);
 		order.setFoodcart(cart);
 		orderRepository.save(order);
 		//cartService.clearCart(cartId);		
@@ -106,10 +106,9 @@ public class IOrderServiceimpl implements IOrderService{
 	@Override
 	public List<OrderDetails> viewAllOrders(String resName) {
 		
-		//List<OrderDetails> list = orderRepository.findAllByRestaurant(resName);
-		//System.out.println(list);
-		//return list;
-		return null;
+		List<OrderDetails> list = orderRepository.findAllByRestaurant(resName);
+		System.out.println(list);
+		return list;
 	}
 
 }
