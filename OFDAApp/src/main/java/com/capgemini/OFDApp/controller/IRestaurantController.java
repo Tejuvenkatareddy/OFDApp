@@ -61,7 +61,7 @@ public class IRestaurantController {
 	 * @return
 	 */
 	@DeleteMapping ("/remove")
-	public Restaurant removeRestaurant(@RequestBody Restaurant res)
+	public String removeRestaurant(@RequestBody Restaurant res)
 	{
 		return irservice.removeRestaurant(res);
 	}

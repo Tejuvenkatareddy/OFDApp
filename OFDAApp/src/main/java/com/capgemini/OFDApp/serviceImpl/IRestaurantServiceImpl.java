@@ -61,9 +61,10 @@ public class IRestaurantServiceImpl implements IRestaurantService {
 	 * Implementation of removeRestaurant method to remove existing Restaurant
 	 */
 	@Override
-	public Restaurant removeRestaurant(Restaurant res) {
+	public String removeRestaurant(Restaurant res) {
+		
 		irRep.delete(res);
-		return null;
+		return "Restaurant with id "+res.getRestaurantId()+ " is deleted";
 	}
 	/**
 	 * Implementation of viewRestaurantByItemname method to view item in restaurant

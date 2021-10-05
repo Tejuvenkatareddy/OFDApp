@@ -35,7 +35,7 @@ public interface IRestaurantService {
 	 * @param res
 	 * @return
 	 */
-	public Restaurant removeRestaurant(Restaurant res);
+	public String removeRestaurant(Restaurant res);
 	/**
 	 * This method is used to viewRestaurant By Item Name
 	 * @param name
