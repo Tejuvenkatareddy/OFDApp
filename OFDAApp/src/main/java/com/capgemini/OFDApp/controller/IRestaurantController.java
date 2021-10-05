@@ -37,7 +37,7 @@ public class IRestaurantController {
 	{
 	return	irservice.addRestaurant(res);
 	}
-	@PostMapping ("/viw")
+	@PostMapping ("/view")
 	public Restaurant viewRestaurant(@RequestBody Restaurant res)
 	{
 		return irservice.viewRestaurant(res);
@@ -85,7 +85,7 @@ public class IRestaurantController {
 	 */
 
 	@PostMapping("/{area}")
-	public List<Restaurant> viewBearByRestaurant(@RequestBody String location)
+	public List<Restaurant> viewNearByRestaurant(@RequestBody String location)
 	{
 		return irservice.viewNearByRestaurant(location);
 		

@@ -64,7 +64,7 @@ public class IItemController {
 		return itservice.viewAllItems(res);
 		
 	}
-	@GetMapping("/itemss")
+	@GetMapping("/items")
 	public List<Item> viewAllItemsByName(String name)
 	{
 		return itservice.viewAllItemsByName(name);

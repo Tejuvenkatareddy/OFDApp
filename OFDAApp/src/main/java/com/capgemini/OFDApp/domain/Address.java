@@ -57,6 +57,18 @@ public class Address {
 	 */
 	private String pincode;
 	/*
+	 * one to one relation with customer
+	 */
+		@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+		@JoinColumn(name="customerid")
+		private Customer customer;
+		/*
+		 * one to one relation with restaurant
+		 */
+		@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+		@JoinColumn(name="restaurantid")
+		private Restaurant restaurant;
+	/*
 	 * setters and getters
 	 */
 	public int getAddressId() {
@@ -130,18 +142,7 @@ public class Address {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-/*
- * one to one relation with customer
- */
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn(name="customerid")
-	private Customer customer;
-	/*
-	 * one to one relation with restaurant
-	 */
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn(name="restaurantid")
-	private Restaurant restaurant;
+
 	@JsonIgnore
 	public Restaurant getRestaurant() {
 		return restaurant;

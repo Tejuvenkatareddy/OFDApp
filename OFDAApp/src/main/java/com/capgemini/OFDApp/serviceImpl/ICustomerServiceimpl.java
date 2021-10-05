@@ -33,8 +33,9 @@ public class ICustomerServiceimpl implements ICustomerService{
 
 	public Customer viewCustomer(Customer customer) {
 		
-	Optional<Customer> customerOptional=iRep.findById(customer.getCustomerId());
-	return customerOptional.get();
+	Customer cust= iRep.getById(customer.getCustomerId());
+	//Optional<Customer> customerOptional=iRep.findById(customer.getCustomerId());
+	return cust;
 	
 	}
 

@@ -30,11 +30,36 @@ public class Restaurant {
 	@Column(name="restaurantid")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int restaurantId;
-	/**
+	/*
 	 * Name of restaurant
 	 */
 	@Column
-	private String resturantName;
+	private String restaurantName;
+	/*
+	 * Name of the manager
+	 */
+	@Column
+	private String managerName;
+	/*
+	 * Contact Number
+	 */
+	@Column
+	private String contactNumber;
+	/*
+	 * OneToOne relationship with address
+	 */
+	@OneToOne(mappedBy="restaurant", cascade = CascadeType.MERGE)
+	private Address address;
+	/*
+	 * ManytoMany relationship with Item
+	 */
+	
+	@ManyToMany(cascade=CascadeType.MERGE)
+	//@Column(name="itemid")
+	@JoinTable(name="restaurant_item_table", joinColumns = @JoinColumn(name="restaurantId"), 
+			inverseJoinColumns = @JoinColumn(name="itemId"))
+	@JoinColumn(name="itemid")
+	private List<Item> itemList;
 	/*
 	 * Getters and Setters
 	 */
@@ -44,11 +69,11 @@ public class Restaurant {
 	public void setRestaurantId(int restaurantId) {
 		this.restaurantId = restaurantId;
 	}
-	public String getResturantName() {
-		return resturantName;
+	public String getRestaurantName() {
+		return restaurantName;
 	}
-	public void setResturantName(String resturantName) {
-		this.resturantName = resturantName;
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
 	}
 	public String getManagerName() {
 		return managerName;
@@ -68,29 +93,13 @@ public class Restaurant {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	/*
-	 * Name of the manager
-	 */
-	@Column
-	private String managerName;
-	/*
-	 * Contact Number
-	 */
-	@Column
-	private String contactNumber;
-	/*
-	 * OneToOne relationship with address
-	 */
-	@OneToOne(mappedBy="restaurant")
-	private Address address;
-	/*
-	 * ManytoMany relationship with Item
-	 */
+	public List<Item> getItemList() {
+		return itemList;
+	}
+	public void setItemList(List<Item> itemList) {
+		this.itemList = itemList;
+	}
 	
-	@ManyToMany(cascade=CascadeType.ALL)
-	//@Column(name="itemid")
-	@JoinColumn(name="itemid")
-	private List<Item> itemList;
 	
 
 }

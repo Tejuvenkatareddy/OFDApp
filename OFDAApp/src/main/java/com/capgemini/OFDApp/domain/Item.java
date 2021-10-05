@@ -55,6 +55,12 @@ public class Item {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "cartId")
 	private FoodCart foodcart;
+	
+	@OneToOne(mappedBy="item",cascade=CascadeType.ALL)
+	private Category category;
+	
+	@ManyToMany(mappedBy="itemList",fetch=FetchType.EAGER)//(targetEntity=Item.class)
+	private List<Restaurant> restaurants; 
 	/**
 	 * Setters and getters
 	 */
@@ -89,12 +95,7 @@ public class Item {
 	public void setFoodcart(FoodCart foodcart) {
 		this.foodcart = foodcart;
 	}
-	@OneToOne(mappedBy="item",cascade=CascadeType.ALL)
 	
-	private Category category;
-	@ManyToMany(mappedBy="itemList",cascade=CascadeType.ALL,fetch=FetchType.EAGER)//(targetEntity=Item.class)
-										//@JoinColumn(name="itemId")
-	private List<Restaurant> restaurants; 
 	@JsonIgnore
 	public Category getCategory() {
 		return category;

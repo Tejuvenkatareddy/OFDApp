@@ -46,12 +46,26 @@ public class Customer implements Serializable {
 	/*
 	 * mobile number of customer
 	 */
-	private String mobileNo;
+	private String mobileNumber;
 	@Column
 	/*
 	 * age of the customer
 	 */
 	private int age; 
+	/*
+	 * one to one relationship with address
+	 */
+	@OneToOne(mappedBy="customer",cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+//	@OneToOne
+	@JoinColumn(name="address_id")
+	private Address address;
+	/*
+	 * one to one relationship with food cart
+	 */
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name="cartid")
+	private FoodCart foodcart;
 	/*
 	 * setters of getters
 	 */
@@ -85,11 +99,11 @@ public class Customer implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getMobileNo() {
-		return mobileNo;
+	public String getMobileNumber() {
+		return mobileNumber;
 	}
-	public void setMobileNo(String mobileNo) {
-		this.mobileNo = mobileNo;
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
 	}
 	public int getAge() {
 		return age;
@@ -97,19 +111,6 @@ public class Customer implements Serializable {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	/*
-	 * one to one relationship with address
-	 */
-	@OneToOne(mappedBy="customer",cascade=CascadeType.ALL)
-	@Embedded
-	private Address address;
-	/*
-	 * one to one relationship with food cart
-	 */
-	
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn(name="cartid")
-	private FoodCart foodcart;
 	@JsonIgnore
 	public FoodCart getFoodcart() {
 		return foodcart;
