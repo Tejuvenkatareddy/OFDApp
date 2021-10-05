@@ -59,7 +59,7 @@ public class Item {
 	@OneToOne(mappedBy="item",cascade=CascadeType.ALL)
 	private Category category;
 	
-	@ManyToMany(mappedBy="itemList",fetch=FetchType.EAGER)//(targetEntity=Item.class)
+	@ManyToMany(mappedBy="itemList",cascade = CascadeType.MERGE,fetch =FetchType.EAGER)//(targetEntity=Item.class)
 	private List<Restaurant> restaurants; 
 	/**
 	 * Setters and getters
