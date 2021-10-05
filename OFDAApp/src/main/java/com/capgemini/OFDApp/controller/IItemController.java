@@ -30,42 +30,77 @@ public class IItemController {
 	
 	@Autowired
 	IItemServiceimpl itservice;
-	@PostMapping
+	/**
+	 * this method is used to add the item
+	 * @param item
+	 * @return
+	 */
+	@PostMapping ("/add")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Item addItem (@RequestBody Item  item)
 	{
 	return	itservice.addItem ( item);
 	}
-	@GetMapping
-	public Item  viewItem (Item  item)
+	/**
+	 * this method is used to view the items
+	 * @param item
+	 * @return
+	 */
+	@PostMapping ("/view")
+	public Item  viewItem (@RequestBody Item  item)
 	{
 		return itservice.viewItem ( item);
 		
 	}
-	@PutMapping
+	/**
+	 * this method is used to update the item
+	 * @param item
+	 * @return
+	 */
+	@PutMapping ("/update")
 	public Item  updateItem (@RequestBody Item  item)
 	{
 		return itservice.updateItem ( item);
 	}
-	@DeleteMapping
-	public Item  removeCustomer(Item  item)
+	/**
+	 * this method is used to remove item
+	 * @param item
+	 * @return
+	 */
+	@DeleteMapping ("/remove")
+	public Item  removeCustomer(@RequestBody Item  item)
 	{
 		return itservice.removeItem ( item);
 	}
-	@GetMapping("/itemsInCategory")
-	public List<Item> viewAllItems (Category cat)
+	/**
+	 * this method is used to view items in categories
+	 * @param cat
+	 * @return
+	 */
+	@PostMapping("/itemsInCategory")
+	public List<Item> viewAllItems (@RequestBody Category cat)
 	{
 		return itservice.viewAllItems(cat);
 		
 	}
-	@GetMapping("/itemsInRestaurant")
-	public List<Item> viewAllItems(Restaurant res)
+	/**
+	 * this method used to view items in Restaurant
+	 * @param res
+	 * @return
+	 */
+	@PostMapping("/itemsInRestaurant")
+	public List<Item> viewAllItems(@RequestBody Restaurant res)
 	{
 		return itservice.viewAllItems(res);
 		
 	}
-	@GetMapping("/items")
-	public List<Item> viewAllItemsByName(String name)
+	/**
+	 * this method used to view all items by name
+	 * @param name
+	 * @return
+	 */
+	@PostMapping("/items")
+	public List<Item> viewAllItemsByName(@RequestBody String name)
 	{
 		return itservice.viewAllItemsByName(name);
 		

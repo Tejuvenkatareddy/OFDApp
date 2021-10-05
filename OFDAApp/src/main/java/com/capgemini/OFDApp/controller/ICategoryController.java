@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,24 +29,31 @@ public class ICategoryController {
 	@Autowired
 	ICategoryServiceimpl icsService;
 	/**
+	 * Item service is autowired
+	 */
+	@Autowired
+	IItemServiceimpl itservice;
+	/**
 	 * to add a category
 	 * @param cat
 	 * @return category
 	 */
-	@PostMapping
+	@PostMapping ("/addCategory/{itemId}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Category addCustomer(@RequestBody Category cat)
-	{
-	return	icsService.addCategory(cat);
+	public Category addCategory(@RequestBody Category cat,@PathVariable Integer itemId) {
+		Item item =new Item();
+		item.setItemId(itemId);
+		cat.setItem(itservice.viewItem(item));
+		return	icsService.addCategory(cat);
 	}
 	/**
 	 * to retrieve a category
 	 * @param cat
 	 * @return category
 	 */
-	@GetMapping
-	public Category viewCategory(Category cat)
-	{
+	@PostMapping ("/view")
+	public Category viewCategory(@RequestBody Category cat){
+		
 		return icsService.viewCategory(cat);
 		
 	}
@@ -54,8 +62,8 @@ public class ICategoryController {
 	 * @param cat
 	 * @return List<categories>
 	 */
-	@GetMapping("/listofall")
-	public List<Category> viewAllCategory(Category cat)
+	@PostMapping("/listofall")
+	public List<Category> viewAllCategory(@RequestBody Category cat)
 	{
 		return icsService.viewAllCategory(cat);
 		
@@ -65,7 +73,7 @@ public class ICategoryController {
 	 * @param cat
 	 * @return category
 	 */
-	@PutMapping
+	@PutMapping ("/update")
 	public Category updateCategory(@RequestBody Category cat)
 	{
 		return icsService.updateCategory(cat);
@@ -75,8 +83,8 @@ public class ICategoryController {
 	 * @param cat
 	 * @return catgeory
 	 */
-	@DeleteMapping
-	public Category removeCategory(Category cat)
+	@DeleteMapping ("/remove")
+	public Category removeCategory(@RequestBody Category cat)
 	{
 		return icsService.removeCategory(cat);
 	}
