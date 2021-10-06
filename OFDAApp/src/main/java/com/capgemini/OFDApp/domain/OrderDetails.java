@@ -117,11 +117,6 @@ public class OrderDetails {
 	protected void  onCreate () {
 		this.orderDate = LocalDateTime.now();
 	}
-	
-	
-
-
-
 	public Customer getCustomer() {
 		return customer;
 	}

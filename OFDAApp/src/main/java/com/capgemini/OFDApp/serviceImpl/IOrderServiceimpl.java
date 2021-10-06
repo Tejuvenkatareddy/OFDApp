@@ -1,15 +1,15 @@
 package com.capgemini.OFDApp.serviceImpl;
 
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityNotFoundException;
+
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Service;
 
-import com.capgemini.OFDApp.domain.Customer;
+
 import com.capgemini.OFDApp.domain.FoodCart;
 import com.capgemini.OFDApp.domain.Item;
 import com.capgemini.OFDApp.domain.OrderDetails;
@@ -19,7 +19,7 @@ import com.capgemini.OFDApp.exceptions.OrderIdException;
 import com.capgemini.OFDApp.respository.IFoodCartRepository;
 import com.capgemini.OFDApp.respository.IItemRepository;
 import com.capgemini.OFDApp.respository.IOrderRepository;
-import com.capgemini.OFDApp.service.IFoodCartService;
+
 import com.capgemini.OFDApp.service.IOrderService;
 
 /**
@@ -29,7 +29,7 @@ import com.capgemini.OFDApp.service.IOrderService;
  */
 @Service
 @Transactional
-@Component
+
 public class IOrderServiceimpl implements IOrderService{
 	
 	@Autowired
@@ -67,8 +67,7 @@ public class IOrderServiceimpl implements IOrderService{
 		order.setList(orderList);
 		order.setOrderStatus(IOrderService.PENDING);
 		order.setFoodcart(cart);
-		orderRepository.save(order);
-		//cartService.clearCart(cartId);		
+		orderRepository.save(order);		
 		return order;
 	}
 

@@ -1,17 +1,18 @@
 package com.capgemini.OFDApp.serviceImpl;
 
 import java.util.List;
-import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
+
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.OFDApp.*;
-import com.capgemini.OFDApp.domain.*;
+import com.capgemini.OFDApp.domain.Customer;
+import com.capgemini.OFDApp.domain.FoodCart;
+import com.capgemini.OFDApp.domain.Item;
+import com.capgemini.OFDApp.domain.Restaurant;
 import com.capgemini.OFDApp.exceptions.CartIdException;
 import com.capgemini.OFDApp.exceptions.CustomerIdException;
 import com.capgemini.OFDApp.exceptions.ItemIdException;
@@ -20,8 +21,7 @@ import com.capgemini.OFDApp.respository.ICustomerRepository;
 import com.capgemini.OFDApp.respository.IFoodCartRepository;
 import com.capgemini.OFDApp.respository.IItemRepository;
 import com.capgemini.OFDApp.service.IFoodCartService;
-import com.capgemini.OFDApp.*;
-import com.capgemini.OFDApp.*;
+
 
 
 /**
@@ -31,7 +31,6 @@ import com.capgemini.OFDApp.*;
  */
 @Service
 @Transactional
-@Component
 public class IFoodCartServiceimpl implements IFoodCartService {
 	
 	
@@ -66,7 +65,7 @@ public class IFoodCartServiceimpl implements IFoodCartService {
 			throw new ItemIdException("Item id doesn't exists......");
 		}
 		int size=cart.getItemList().size();
-		if(size>=0)
+		if(size==0)
 		{
 			item.setQuantity(1);
 			cart.getItemList().add(item);

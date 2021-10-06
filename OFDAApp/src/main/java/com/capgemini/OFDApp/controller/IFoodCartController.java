@@ -3,7 +3,7 @@ package com.capgemini.OFDApp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capgemini.OFDApp.domain.*;
+import com.capgemini.OFDApp.domain.FoodCart;
+import com.capgemini.OFDApp.domain.Item;
 import com.capgemini.OFDApp.exceptions.CartIdException;
 import com.capgemini.OFDApp.exceptions.ItemIdException;
 import com.capgemini.OFDApp.service.IFoodCartService;
 import com.capgemini.OFDApp.service.IItemService;
-import com.capgemini.OFDApp.serviceImpl.*;
+
 
 
 /**
@@ -28,7 +29,7 @@ import com.capgemini.OFDApp.serviceImpl.*;
  */
 @RestController
 @RequestMapping("api/FoodCarts")
-@Component
+
 public class IFoodCartController {
 	@Autowired
 	IFoodCartService cartService;
@@ -47,10 +48,6 @@ public class IFoodCartController {
 	public ResponseEntity<FoodCart> addItemToCart(@RequestParam("cartId") int cartId,@PathVariable int itemId) {
 		
 		FoodCart cart1 = cartService.addItemToCart(cartId,itemId);
-		
-		FoodCart cart2=new FoodCart();
-		cart2.setCartId(cart1.getCartId());
-		cart2.setCustomer(cart1.getCustomer());
 		return new ResponseEntity<FoodCart>(cart1, HttpStatus.OK);
 		
 	}
