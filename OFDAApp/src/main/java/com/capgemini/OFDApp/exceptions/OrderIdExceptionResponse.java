@@ -16,7 +16,7 @@ public class OrderIdExceptionResponse {
 		return orderId;
 	}
 
-	public void setOrderId(String cartId) {
-		this.orderId = cartId;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 }

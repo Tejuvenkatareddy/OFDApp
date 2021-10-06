@@ -5,9 +5,9 @@ public class CustomerIdExceptionResponse {
 
 	private String customerId;
 
-	public CustomerIdExceptionResponse(String orderId) {
+	public CustomerIdExceptionResponse(String customerId) {
 		super();
-		this.customerId = orderId;
+		this.customerId = customerId;
 	}
 
 	public String getOrderId() {

@@ -5,7 +5,7 @@ public class CategoryIdExceptionResponse {
 
 	private String categoryId;
 
-	public CategoryIdExceptionResponse(String restaurantId) {
+	public CategoryIdExceptionResponse(String categoryId) {
 		super();
 		this.categoryId = categoryId;
 	}
@@ -14,7 +14,7 @@ public class CategoryIdExceptionResponse {
 		return categoryId;
 	}
 
-	public void setrestaurantId(String resId) {
+	public void setrestaurantId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 }

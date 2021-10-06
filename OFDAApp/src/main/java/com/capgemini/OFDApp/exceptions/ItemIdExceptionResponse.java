@@ -8,11 +8,11 @@ public class ItemIdExceptionResponse {
 		this.ItemId = itemId;
 	}
 
-	public String getCartId() {
+	public String getItemId() {
 		return ItemId;
 	}
 
-	public void setCartId(String itemId) {
+	public void setItemId(String itemId) {
 		this.ItemId = itemId;
 	}
 }
