@@ -53,17 +53,16 @@ public class IOrderController {
         order.setCustomer(order1.getCustomer());
         order.setList(order1.getList());
         order.setRestaurant(order1.getRestaurant());
-			OrderDetails order2 =orderService.updateOrder(order);
-			return new ResponseEntity<OrderDetails>(order2,HttpStatus.OK);
+		OrderDetails order2 =orderService.updateOrder(order);
+		return new ResponseEntity<OrderDetails>(order2,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/removeOrderByOrderId/{orderId}")
 	public  ResponseEntity<String> removeOrder(@PathVariable("orderId") int orderId)  
 	{
-		   OrderDetails order1=orderService.viewOrder(orderId);
-	       
-	    	  String msg=orderService.removeOrder(order1);
-	    	   return new ResponseEntity<String>(msg, HttpStatus.OK);
+		  OrderDetails order1=orderService.viewOrder(orderId);
+	      String msg=orderService.removeOrder(order1);
+	      return new ResponseEntity<String>(msg, HttpStatus.OK);
 	       
 	}
 	
@@ -72,8 +71,7 @@ public class IOrderController {
 	{
 		OrderDetails order2 = orderService.viewOrder(orderId);
 		
-		
-			return new ResponseEntity<OrderDetails>(order2, HttpStatus.OK);
+		return new ResponseEntity<OrderDetails>(order2, HttpStatus.OK);
 		
 	
 	}
@@ -83,7 +81,7 @@ public class IOrderController {
 	{
 		List<OrderDetails> order2 = orderService.viewAllOrders(resName);
 		
-			return new ResponseEntity<List<OrderDetails>>(order2, HttpStatus.OK);
+		return new ResponseEntity<List<OrderDetails>>(order2, HttpStatus.OK);
 
 		
 	}
@@ -93,7 +91,7 @@ public class IOrderController {
 	{
 		List<OrderDetails> order2 = orderService.viewAllOrders(id);
 		
-			return new ResponseEntity<List<OrderDetails>>(order2, HttpStatus.OK);
+		return new ResponseEntity<List<OrderDetails>>(order2, HttpStatus.OK);
 		
 	}
 

@@ -51,9 +51,6 @@ public class FoodCart{
 	 * List of items 
 	 * One to many relation with customer 
 	 */
-	//@OneToMany(targetEntity=FoodCart.class,cascade=CascadeType.ALL)
-	//@JoinColumn(name="cartid")
-	//@OneToMany(cascade= CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "foodcart")
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name ="cart_item_list", joinColumns = { @JoinColumn(name = "cartId")}, inverseJoinColumns = {@JoinColumn(name = "item_id")})
 	private List<Item> itemlist = new ArrayList<>();
