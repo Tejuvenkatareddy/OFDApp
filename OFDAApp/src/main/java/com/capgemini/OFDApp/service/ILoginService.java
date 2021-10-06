@@ -12,6 +12,9 @@ public interface ILoginService {
 	
 	public Login signIn(Login login);
 	public Login signOut(Login login);
-	public void register(Login login);
+	public Login register(Login login);
 	public List<Login> getAll();
+	public Login deleteAcc(Login login);
+	public Long getCountofUsers();
+	public boolean isSignedIn(Login login);
 }

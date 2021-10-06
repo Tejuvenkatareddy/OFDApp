@@ -23,23 +23,28 @@ public class ILoginServiceimpl implements ILoginService{
 
 	@Override
 	public Login signIn(Login login) {
-		Login log= loginRepo.findByUserName(login.getUserName());
-		return log;
+		if(loginRepo.findByPassword(login.getPassword())!=null && loginRepo.findByUserName(login.getUserName())!=null)
+			return login;
+		else
+			return null;
 	}
 
 	@Override
 	public Login signOut(Login login) {
-		Optional<Login> l=loginRepo.findById(login.getId());
-		Login log=null;
-		if(l.isPresent())
-			log=l.get();
-		loginRepo.delete(log);
-		return log;
+		if(loginRepo.findByPassword(login.getPassword())!=null && loginRepo.findByUserName(login.getUserName())!=null)
+			return login;
+		else
+			return null;
 	}
 
 	@Override
-	public void register(Login login) {
-		loginRepo.save(login);
+	public Login register(Login login) {
+		if(loginRepo.findByUserName(login.getUserName())!=null)
+			return null;
+		else	{
+			loginRepo.save(login);
+			return login;
+		}
 	}
 
 	@Override
@@ -47,5 +52,32 @@ public class ILoginServiceimpl implements ILoginService{
 		return loginRepo.findAll();
 	}
 	
+	@Override
+	public Login deleteAcc(Login login)	{
+//		Optional<Login> l=loginRepo.findById(login.getId());
+//		Login log=null;
+//		if(l.isPresent())
+//			log=l.get();
+//		loginRepo.delete(log);
+		if(loginRepo.existsById(login.getId()))
+		{
+			loginRepo.delete(login);
+			return login;
+		}
+		else
+			return null;
+	}
 	
+	@Override
+	public Long getCountofUsers()	{
+		return loginRepo.count();
+	}
+	
+	@Override
+	public boolean isSignedIn(Login login)	{
+		if(login.isSignedIn()==1)
+			return true;
+		else
+			return false;
+	}
 }

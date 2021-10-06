@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /*
  * The Login bean
  */
@@ -50,10 +52,16 @@ public class Login {
 	@NotBlank(message="Please enter a role")
 	private String role;
 	/**
+	 * For signed in status
+	 */
+	@Column(name="signedIn")
+	private int signedIn;
+	/**
 	 * Default constructor
 	 */
 	public Login() {
 		super();
+		this.signedIn=0;
 	}
 	/**
 	 * Parameterized constructor
@@ -62,12 +70,13 @@ public class Login {
 	 * @param password
 	 * @param role
 	 */
-	public Login(Integer id, String userName, String password, String role) {
+	public Login(Integer id, String userName, String password, String role, int signedIn) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
 		this.role = role.toUpperCase();
+		this.signedIn=signedIn;
 	}
 	/**
 	 * Setters and Getters
@@ -95,6 +104,13 @@ public class Login {
 	}
 	public void setRole(String role) {
 		this.role=role.toUpperCase();
+	}
+	@JsonIgnore
+	public int isSignedIn() {
+		return signedIn;
+	}
+	public void setSignedIn(int signedIn) {
+		this.signedIn = signedIn;
 	}
 	/**
 	 * ToString method

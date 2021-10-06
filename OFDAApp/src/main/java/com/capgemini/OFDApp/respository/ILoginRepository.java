@@ -17,4 +17,5 @@ public interface ILoginRepository extends JpaRepository<Login, Integer>{
 	
 	Login findByUserName(String userName);
 	Optional<Login> findById(Integer id);
+	Login findByPassword(String password);
 }
